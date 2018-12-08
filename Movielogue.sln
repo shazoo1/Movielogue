@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movielogue.Web", "Movielogue.Web\Movielogue.Web.csproj", "{F674362B-4A82-4553-A79A-4D5E818B6ECE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F674362B-4A82-4553-A79A-4D5E818B6ECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F674362B-4A82-4553-A79A-4D5E818B6ECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F674362B-4A82-4553-A79A-4D5E818B6ECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F674362B-4A82-4553-A79A-4D5E818B6ECE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0B9C6BBC-1A8E-4DBC-B02A-60A2C9C196BF}
+	EndGlobalSection
+EndGlobal
