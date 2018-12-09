@@ -6,6 +6,12 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using Movielogue.Web.Models;
+using Movielogue.Persistence;
+using Movielogue.Service.Identity;
+using System.Web.Mvc;
+using Movielogue.Domain.Contracts;
+using Movielogue.Domain.Store;
+using Movielogue.Domain.Entities.Identity;
 
 namespace Movielogue.Web
 {
@@ -15,9 +21,15 @@ namespace Movielogue.Web
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+            app.CreatePerOwinContext(() => DependencyResolver.Current.GetService<IMovielogueDbContext>());
+            app.CreatePerOwinContext<IUserStore<User, Guid>>((options, context) =>
+                new UserStore(context.Get<IMovielogueDbContext>()));
+            app.CreatePerOwinContext<IRoleStore<Role, Guid>>((options, context) =>
+                new RoleStore(context.Get<IMovielogueDbContext>()));
+
+            app.CreatePerOwinContext<UserManager>((options, context) => new UserManager(options, context.Get<IUserStore<User, Guid>>()));
+            app.CreatePerOwinContext<RoleManager>((options, context) => new RoleManager(context.Get<IRoleStore<Role, Guid>>()));
+            app.CreatePerOwinContext<SignInManager>(SignInManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider

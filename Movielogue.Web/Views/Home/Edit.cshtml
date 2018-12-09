@@ -1,0 +1,77 @@
+﻿@model Movielogue.Web.Models.Home.MovieViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+@if (Model.Id != Guid.Empty)
+{
+    <h2>Редактировать фильм</h2>
+}
+else
+{
+    <h2>Добавить фильм</h2>
+}
+@Styles.Render("~/Content/dropzone")
+<div class="table clearfix">
+    <div class="col-md-6 col-lg-6 col-sm-6">
+        @using (Html.BeginForm("Edit", "Home", FormMethod.Post, new { @class = "form-group" }))
+        {
+            @Html.HiddenFor(m => m.Id)
+        <div>
+            @Html.LabelFor(m => m.Title)
+            @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Director)
+            @Html.TextBoxFor(m => m.Director, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Director, "", new { @class = "text-danger" })
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Description)
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Year)
+            @Html.TextBoxFor(m => m.Year, new { @class = "form-control", @type = "number" })
+            @Html.ValidationMessageFor(m => m.Year, "", new { @class = "text-danger" })
+        </div>
+            @Html.HiddenFor(m => m.PosterLink, new { @id = "posterLink" })
+            <input type="submit" value="Сохранить" />
+        }
+    </div>
+    <div class="col-md-6 col-lg-6 col-sm-6">
+        @Html.LabelFor(m => m.PosterLink)
+        <form action="/Home/UploadPoster"
+              method="post"
+              class="dropzone"
+              id="dropzone"></form>
+    </div>
+</div>
+<script src="~/Scripts/dropzone/dropzone.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $('#imgLink').bind('input', function () {
+            $('#posterPreview').attr('src', $(this).val());
+        });
+    });
+    Dropzone.autoDiscover = false;
+    var dzone = new Dropzone(document.getElementById('dropzone'), {
+        paramName: "file", // The name that will be used to transfer the file
+        maxFilesize: 2, // MB
+        accept: function (file, done) {
+             done();
+        },
+        acceptedFiles: 'image/*',
+        init: function () {
+            this.on("complete", function (data) {
+                var res = JSON.parse(data.xhr.responseText);
+                console.log(res.Message);
+                $('#posterLink').val(res.Message);
+            });
+        },
+        maxFiles: 1
+    });
+</script>
+<script>$(".chzn-select").chosen();</script>
+

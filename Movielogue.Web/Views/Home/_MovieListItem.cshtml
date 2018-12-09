@@ -1,0 +1,20 @@
+﻿@model Movielogue.Web.Models.Home.MovieViewModel
+<a href="@Url.Action("Details", "Home", new { id=Model.Id})">
+    <div class="table col-md-8" >
+        <div class="col-md-4">
+            <p>Название: </p>
+            <p>Режисёр: </p>
+            <p>Описание: </p>
+            <p>Год выпуска: </p>
+        </div>
+        <div class="col-md-4">
+            <p>@Model.Title</p>
+            <p>@Model.Director</p>
+            <p>@Model.Description</p>
+            <p>@Model.Year</p>
+        </div>
+        <div class="col-md-4">
+            <img src="@Url.Content(Model.PosterLink)" height="200" />
+        </div>
+    </div>
+</a>

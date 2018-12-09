@@ -1,0 +1,28 @@
+﻿@model Movielogue.Web.Models.Home.MovieViewModel
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<div class="jumbotron">
+    <h2>@Model.Title</h2>
+    @if (Model.Editable)
+    {
+        <a role="button" class="btn btn-default" href="@Url.Action("Edit", "Home", new { id = Model.Id})">Редактировать</a>
+    }
+</div>
+
+<div class="table">
+    <div class="col-md-2">
+        <p>Год: </p>
+        <p>Режиссёр: </p>
+        <p>Опиание:</p>
+    </div>
+    <div class="col-md-4">
+        <p>@Model.Year</p>
+        <p>@Model.Director</p>
+        <p>@Model.Description</p>
+    </div>
+    <div class="col-md-6">
+        <img src="@Url.Content(Model.PosterLink)" height="400" />
+    </div>
+</div>
